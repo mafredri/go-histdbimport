@@ -238,6 +238,8 @@ func readAndInsert(tx *transaction, r io.Reader) error {
 
 	bcs := strings.Split(boringCommands, ",")
 
+	m := make(map[basicEntry]bool)
+
 outer:
 	for {
 		entry, ok := readEntry(scanner)
@@ -258,6 +260,12 @@ outer:
 			log.Printf("Skipping malformed entry: %+v", err)
 			continue
 		}
+
+		if m[parsed] {
+			log.Printf("Skipping existing %+v\n", parsed)
+			continue
+		}
+		m[parsed] = true
 
 		for _, bc := range bcs {
 			if parsed.cmd == bc {
