@@ -255,7 +255,8 @@ outer:
 
 		parsed, err := parseEntry(entry)
 		if err != nil {
-			return err
+			log.Printf("Skipping malformed entry: %+v", err)
+			continue
 		}
 
 		for _, bc := range bcs {
