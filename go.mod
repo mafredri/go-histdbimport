@@ -1,4 +1,4 @@
-module github.com/drewis/go-histdbimport
+module github.com/mafredri/go-histdbimport
 
 go 1.15
 
